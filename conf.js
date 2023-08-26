@@ -1,6 +1,6 @@
 window.appConf = {
-    author: 'React Drive CMS',
-    dashboardId: '1-on_GfmvaEcOk7HcWfKb8B6KFRv166RkLN2YmDEtDn4',
+    author: 'Social Époque',
+    dashboardId: '1wPqIW6EkudMnyBWliG2suYpX3c2GJZbz2Dctnfg6bTZ9RXQJzfpdCm3n',
     sendContactMessageUrlId:
         'AKfycbyL4vW1UWs4mskuDjLoLmf1Hjan1rTLEca6i2Hi2H_4CtKUN84d',
     shortname: 'socialepoqueblog',
