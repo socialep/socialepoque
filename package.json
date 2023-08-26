@@ -3,7 +3,7 @@
     "start": "node ./dev/server.js",
     "format": "./node_modules/.bin/prettier --write --no-semi --tab-width 4 --single-quote \"{,!(node_modules|deps)/**/}*.js\""
   },
-  "name": "react-drive-cms",
+  "name": "socialepoque",
   "version": "4.2.7",
   "main": "app/app.js",
   "directories": {
@@ -12,7 +12,12 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {},
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "emailjs-com": "^3.2.0",
+    "i18next": "^23.4.1",
+    "react-i18next": "^13.0.3"
+  },
   "devDependencies": {
     "prettier": "^2.5.1"
   }

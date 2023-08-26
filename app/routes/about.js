@@ -10,7 +10,6 @@ export const About = () => html`
         }
 
         .about-content img.image {
-            border-radius: 50%;
             width: 150px;
             border: 0;
             max-width: 100%;
@@ -60,39 +59,26 @@ export const About = () => html`
     </style>
     <${Page}
         title="About"
-        subtitle="React Drive CMS Demo"
-        description="An easy way to publish articles directly from Google Drive"
+        subtitle="Blog Social Époque"
+        description="Get to know a bit more about this initative"
         sidebarImage=${prefixUriIfNeeded('/assets/default-about.jpg')}
         showLinks=${true}
     >
         <div class="about-content">
             <img
-                src=${prefixUriIfNeeded('/assets/react_logo.png')}
+                src=${prefixUriIfNeeded('/assets/favicon.ico')}
                 class="image"
             />
             <div class="info">
-                <h1 class="info-title">React Drive CMS Demo</h1>
+                <h1 class="info-title">Social Époque</h1>
                 <p>
-                    A demo site to showcase the use of Google Drive as a Content
-                    Management System. Write articles in Google Docs and publish
-                    them directly from there.
+                Social Époque is an initiative that aims to promote social impact throught technological and educational resources. In this process, both professors and students that are interested in researching about education and/or sexual minorities causes are going to be able to publish small articles so they can connect with our network and debate about trends in their interested topic.
                 </p>
                 <p>
-                    Google Drive is the backend, only a few static files are
-                    hosted on GitHub Pages, and the content is displayed with
-                    React JS.
+                The social era then flourishes through initiatives like this, in which more people will be motivated to act in favor of different causes.
                 </p>
             </div>
         </div>
 
-        <footer>
-            <a
-                href="${prefixUriIfNeeded('/contact')}"
-                class="contact"
-                onClick=${avoidReload}
-            >
-                Contact
-            </a>
-        </footer>
     <//>
 `

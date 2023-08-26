@@ -10,10 +10,19 @@ import { reducer, initialState } from './state.js'
 
 import { Article } from './routes/article.js'
 import { Category } from './routes/category.js'
-
+import { Calculay } from './routes/calculay.js'
 import { About } from './routes/about.js'
 import { Contact } from './routes/contact.js'
 import { Home } from './routes/home.js'
+import { Howtouse } from './routes/howtouse.js'
+import { Termsofuse } from './routes/termsofuse.js'
+import { Requirements } from './routes/requirements.js'
+import { Network } from './routes/network.js'
+import { Professors } from './routes/professors.js'
+import { Students } from './routes/students.js'
+
+
+
 import { getActiveItemId, getPageName } from './utils/path.js'
 
 const App = () => {
@@ -30,6 +39,20 @@ const App = () => {
             Page = Category
         } else if (pageName === 'articles') {
             Page = Article
+        } else if (pageName === 'calculay') {
+            Page = Calculay
+        } else if (pageName === 'howtouse') {
+            Page = Howtouse
+        } else if (pageName === 'termsofuse') {
+            Page = Termsofuse
+        } else if (pageName === 'requirements') {
+            Page = Requirements
+        } else if (pageName === 'network') {
+            Page = Network
+        } else if (pageName === 'students') {
+            Page = Students
+        } else if (pageName === 'professors') {
+            Page = Professors
         }
         return Page
     }, [pageName])

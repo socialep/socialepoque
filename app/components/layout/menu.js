@@ -77,6 +77,15 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                 cursor: pointer;
                 font-family: Arial;
             }
+            .menu-label {
+                color: #dadada;
+                margin-left: 20px;
+                font-weight: 500;
+                font-size: large;
+                border-bottom: 0 transparent;
+                background-color: transparent;
+                font-family: Arial;
+            }
             .item-link:hover {
                 color: #fff;
                 outline: 0;
@@ -142,20 +151,53 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                         class="item-link"
                         onClick=${avoidReload}
                     >
-                        Home
+                        Blog Social Époque
                     </a>
                 </li>
                 <li class="item">
-                    <i class="fas fa-user icon" />
+                    <i class="fas fa-plus icon" />
                     <a
                         href="${prefixUriIfNeeded('/about')}"
                         title="About"
                         class="item-link"
                         onClick=${avoidReload}
                     >
-                        About
+                        About Social Époque
                     </a>
                 </li>
+                <li class="item">
+                <i class="fas fa-pen icon" />
+                <a
+                    href="${prefixUriIfNeeded('/requirements')}"
+                    title="Publish your article"
+                    class="item-link"
+                    onClick=${avoidReload}
+                >
+                     Publish your article
+                </a>
+            </li>
+            <li class="item">
+            <i class="fas fa-user icon"  />
+            <a
+                href="${prefixUriIfNeeded('/network')}"
+                title="Network"
+                class="item-link"
+                onClick=${avoidReload}
+            >
+                 Network
+            </a>
+        </li>
+                <li class="item">
+                <i class="fas fa-calculator icon" />
+                <a
+                    href="${prefixUriIfNeeded('/calculay')}"
+                    title="Calculay - the project"
+                    class="item-link"
+                    onClick=${avoidReload}
+                >
+                    Calculay - the project
+                </a>
+            </li>
                 <li class="item">
                     <i class="fas fa-paper-plane icon" />
                     <a
@@ -164,11 +206,12 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                         class="item-link"
                         onClick=${avoidReload}
                     >
-                        Contact
+                        Contact us
                     </a>
                 </li>
             </ul>
             <hr class="separator" />
+            <p class="menu-label">Articles by category</p>
             <ul class="menu-list">
                 ${Object.values(categories).map(
                     (category, index) => html`

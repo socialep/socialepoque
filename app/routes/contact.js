@@ -147,173 +147,76 @@ export const Contact = ({ state, dispatch }) => {
         }
     }
 
-    return html` <style>
-            ${inputStyles} .contact-title {
-                font-size: 2.6rem;
-                margin-top: 20px;
-                font-family: inherit;
-                font-weight: 500;
-                line-height: 1.1;
-                color: inherit;
-                margin-bottom: 10px;
-            }
-            form {
-                margin-bottom: 5rem;
-            }
-            form label {
-                font-size: 2rem;
-                font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-                font-weight: 700;
-                margin: 15px 0 0;
-            }
-            form button {
-                font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-            }
-            form button .spinner {
-                margin-right: 1rem;
-            }
-            form button.green,
-            form button.green:disabled {
-                background-color: green;
-            }
-            form button.red,
-            form button.red:disabled {
-                background-color: red;
-            }
-            form .error {
-                color: red;
-            }
-            form .required:after {
-                color: red;
-                content: ' *';
-            }
-            footer {
-                padding: 10px 0;
-                font-size: 1.4rem;
-                letter-spacing: 1px;
-                font-weight: 700;
-                font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-                text-transform: uppercase;
-            }
-            footer a.contact {
-                text-decoration: none;
-                background-color: transparent;
-                color: #999;
-                border-bottom: none;
-                font-size: 1.4rem;
-            }
-            footer a.contact:hover {
-                text-decoration: none;
-                background-color: transparent;
-                color: #333;
-                outline: 0;
-                transition: all 0.4s;
-                border-bottom: none;
-            }
-        </style>
+    return html`     <style>
+    .about-content {
+        display: block;
+    }
+
+    .about-content img.image {
+        width: 150px;
+        border: 0;
+        max-width: 100%;
+        vertical-align: middle;
+        float: left;
+        margin-right: 2rem;
+    }
+
+    .info-title {
+        margin: 30px 0 20px;
+        font-size: 3.8rem;
+        font-weight: 700;
+        line-height: 1.1;
+        font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+    }
+
+    .info p {
+        font-size: 2rem;
+        margin: 0 0 30px;
+    }
+
+    footer {
+        padding: 10px 0;
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+        text-transform: uppercase;
+    }
+
+    footer a.contact {
+        text-decoration: none;
+        background-color: transparent;
+        color: #999;
+        border-bottom: none;
+        font-size: 1.4rem;
+    }
+
+    footer a.contact:hover {
+        text-decoration: none;
+        background-color: transparent;
+        color: #333;
+        outline: 0;
+        transition: all 0.4s;
+        border-bottom: none;
+    }
+</style>
         <${Page}
             title="Contact"
             subtitle="Get in touch with us"
             description=""
             sidebarImage=${prefixUriIfNeeded('/assets/default-contact.jpg')}
         >
-            <h3 class="contact-title">Send me an email</h3>
-            <form>
-                <div>
-                    <label for="name" class="required"> Your name </label>
-                    ${errorProperty === 'name' &&
-                    html` <span class="error"> ${formError} </span> `}
-                    <${BaseInput}
-                        value=${name.value}
-                        name="name"
-                        placeholder="Jack Smith"
-                        onInput=${debouncedUpdateText}
-                        className="input-base ${errorProperty === 'name'
-                            ? 'input-error'
-                            : ''}"
-                        required
-                    />
-                </div>
-                <div>
-                    <label for="email" class="required"> Your email </label>
-                    ${errorProperty === 'email' &&
-                    html` <span class="error"> ${formError} </span> `}
-                    <${BaseInput}
-                        value=${email.value}
-                        name="email"
-                        placeholder="example@mail.com"
-                        type="email"
-                        onInput=${debouncedUpdateEmail}
-                        className="input-base ${errorProperty === 'email'
-                            ? 'input-error'
-                            : ''}"
-                        required
-                    />
-                </div>
-                <div>
-                    <label for="company"> Company </label>
-                    ${errorProperty === 'company' &&
-                    html` <span class="error"> ${formError} </span> `}
-                    <${BaseInput}
-                        value=${company.value}
-                        name="company"
-                        placeholder="Example Corporation"
-                        onInput=${debouncedUpdateText}
-                        className="input-base ${errorProperty === 'company'
-                            ? 'input-error'
-                            : ''}"
-                    />
-                </div>
-                <div>
-                    <label for="phone"> Phone number </label>
-                    ${errorProperty === 'phone' &&
-                    html` <span class="error"> ${formError} </span> `}
-                    <${BaseInput}
-                        value=${phone.value}
-                        name="phone"
-                        placeholder="+44778765439"
-                        onInput=${debouncedUpdateText}
-                        className="input-base ${errorProperty === 'phone'
-                            ? 'input-error'
-                            : ''}"
-                    />
-                </div>
-                <div>
-                    <label for="message" class="required"> Your message </label>
-                    ${errorProperty === 'message' &&
-                    html` <span class="error"> ${formError} </span> `}
-                    <${BaseInput}
-                        value=${message.value}
-                        name="message"
-                        placeholder="Hello, let's chat!"
-                        Component="textarea"
-                        onInput=${debouncedUpdateText}
-                        className="input-base ${errorProperty === 'message'
-                            ? 'input-error'
-                            : ''}"
-                        required
-                    />
-                </div>
-                <br />
-                <${SubmitButton}
-                    isSending=${isSending}
-                    isSent=${isSent}
-                    formError=${formError}
-                    sentError=${sentError}
-                    sendMessage=${sendMessage}
-                />
-            </form>
-            <footer>
-                <a
-                    href="${prefixUriIfNeeded('/about')}"
-                    class="contact"
-                    onClick=${avoidReload}
-                >
-                    About
-                </a>
-            </footer>
+            <div class="info">
+            
+<h1 class="info-title">Send us an email</h1>
+<p>
+Do you have any doubt about this initiative or would like to get in touch for future collaboration?
+Send us an email to socialepoquebr@gmail.com. </p>   
+            </div>
+
         <//>`
 }
+
 
 const SubmitButton = ({
     isSending,

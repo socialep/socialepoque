@@ -212,46 +212,9 @@ export const Footer = ({
         </style>
         <footer>
             <div class="top ${menuVisible ? 'top-narrow' : ''}">
-                <a
-                    href="${prefixUriIfNeeded('/about')}"
-                    title="About"
-                    class="profile-link"
-                    onClick=${avoidReload}
-                >
-                    <img
-                        src=${prefixUriIfNeeded('/assets/profile-1.jpg')}
-                        class="profile"
-                        alt="user-image"
-                    />
-                </a>
-
-                <div class="credits ${menuVisible ? 'credits-narrow' : ''}">
-                    <p>
-                        Published on the${' '}
-                        <span class="underline"> ${article.date} </span>
-                        ${' '}by${' '}
-                        <a
-                            href="${prefixUriIfNeeded('/about')}"
-                            title="About"
-                            class="blue-link"
-                            onClick=${avoidReload}
-                        >
-                            ${conf.author}
-                        </a>
-                        ${' '}in${' '}
-                        <a
-                            href=${prefixUriIfNeeded(category.uri)}
-                            title=${category.title}
-                            class="blue-link"
-                            onClick=${avoidReload}
-                        >
-                            ${category.title}
-                        </a>
-                    </p>
-                </div>
+ 
 
                 <div class="social">
-                    <p>Share this article</p>
                     <div class="social-links">
                         <a
                             class="social-icon"
