@@ -1,6 +1,6 @@
 window.appConf = {
     author: 'Social Époque',
-    dashboardId: '1wPqIW6EkudMnyBWliG2suYpX3c2GJZbz2Dctnfg6bTZ9RXQJzfpdCm3n',
+    dashboardId: '1umTgn3KLkb-a1BhNFnvebaFPUlGI2L9_agTmvSf6FWY',
     sendContactMessageUrlId:
         'AKfycbyL4vW1UWs4mskuDjLoLmf1Hjan1rTLEca6i2Hi2H_4CtKUN84d',
     shortname: 'socialepoqueblog',
