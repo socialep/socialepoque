@@ -3,13 +3,14 @@ import { Page } from '../components/layout/page.js'
 import prefixUriIfNeeded from '../utils/prefixUriIfNeeded.js'
 import { avoidReload } from '../utils/avoidReload.js'
 
-export const Calculay = () => html`
+export const Maincalculay = () => html`
     <style>
         .about-content {
             display: block;
         }
 
         .about-content img.image {
+            border-radius: 50%;
             width: 150px;
             border: 0;
             max-width: 100%;
@@ -56,61 +57,17 @@ export const Calculay = () => html`
             transition: all 0.4s;
             border-bottom: none;
         }
+        @media (max-width: 1202px) {
+            .disappear {
+                display: none;
+            }
     </style>
     <${Page}
-        title="Calculay"
-        subtitle="The LGBTQ+ friendly calculator"
-        description="Stop dividing: ADD!"
-        sidebarImage=${prefixUriIfNeeded('/assets/carthree.jpg')}
+        title="Terms of use"
+        subtitle="Calculay"
+        sidebarImage=${prefixUriIfNeeded('/assets/termsofservice.jpg')}
         showLinks=${true}
-    >
-        <div class="about-content">
-            <img
-                src=${prefixUriIfNeeded('/assets/icon.png')}
-                class="image"
-            />
-            <div class="info">
-                <h1 class="info-title">Calculay</h1>
-                <p>
-                    The calculator's goal is not only to calculate, but also to inform/denounce homofobia towards LGBTQIA+ people.
-                </p>
-                <p>
-                    Learn more on how to use your calculator above and how to make the denounce. The app is also able to make scientific calculs.
-                </p>
-            </div>
-        </div>
-
-        <footer>
-            <a
-                href="${prefixUriIfNeeded('/howtouse')}"
-                class="howtouse"
-                onClick=${avoidReload}
-            >
-                How to use Calculay
-            </a>
-        </footer>
-
-    <footer>
-    <a
-    href="${prefixUriIfNeeded('/termsofuse')}"
-    class="termsofuse"
-    onClick=${avoidReload}
->
-    Terms of use Calculay
-</a>
-    
-        </footer>
-    <footer>
-    <a
-    href="${prefixUriIfNeeded('/maincalculay')}"
-    class="maincalculay"
-    onClick=${avoidReload}
->
-    Download Calculay
-</a>
-    
-        </footer>
-
-
+        >
+       
     <//>
 `

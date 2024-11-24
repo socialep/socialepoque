@@ -20,7 +20,7 @@ import { Requirements } from './routes/requirements.js'
 import { Network } from './routes/network.js'
 import { Professors } from './routes/professors.js'
 import { Students } from './routes/students.js'
-
+import { Maincalculay } from './routes/maincalculay.js'
 
 
 import { getActiveItemId, getPageName } from './utils/path.js'
@@ -45,6 +45,8 @@ const App = () => {
             Page = Howtouse
         } else if (pageName === 'termsofuse') {
             Page = Termsofuse
+        } else if (pageName === 'maincalculay') {
+            Page = Maincalculay
         } else if (pageName === 'requirements') {
             Page = Requirements
         } else if (pageName === 'network') {

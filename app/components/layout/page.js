@@ -95,11 +95,12 @@ export const Page = ({
                     justify-content: flex-end;
                 }
                 section.page-content {
-                    width: 60%;
+                    width: 50%;
                 }
                 section.page-content.content-narrow {
                     width: 52%;
                 }
+
             }
         </style>
         <div class="wrapper page">

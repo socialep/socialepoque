@@ -48,7 +48,7 @@ export const Sidebar = ({
                 }
             }
 
-            @media (min-width: 992px) {
+            @media (min-width: 822px) {
                 aside.sidebar {
                     height: 100vh;
                     background-color: #f5f5f5;
@@ -58,7 +58,7 @@ export const Sidebar = ({
                 }
 
                 aside.sidebar.sidebar-narrow {
-                    height: 45rem;
+                    height: 20rem;
                     position: relative;
                     width: 100%;
                 }
@@ -69,7 +69,7 @@ export const Sidebar = ({
                     height: 100vh;
                     background-color: #f5f5f5;
                     position: fixed;
-                    width: 40%;
+                    width: 50%;
                     left: 0;
                 }
 
@@ -155,6 +155,14 @@ export const Sidebar = ({
                 background-color: #286090;
                 border-color: #122b40;
                 text-decoration: none;
+            }
+            @media (max-width: 902px) {
+                aside.sidebar {
+                    display: none; /* Hide sidebar on small screens */
+                }
+                aside.sidebar.sidebar-narrow {
+                    display: none; /* Hide sidebar on small screens */
+                }
             }
         </style>
         <aside
