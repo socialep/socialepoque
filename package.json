@@ -15,6 +15,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "emailjs-com": "^3.2.0",
+    "factorial": "^2.0.0",
     "i18next": "^23.4.1",
     "react-i18next": "^13.0.3"
   },

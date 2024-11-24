@@ -147,6 +147,11 @@ emailjs-com@^3.2.0:
   resolved "https://registry.yarnpkg.com/emailjs-com/-/emailjs-com-3.2.0.tgz#a53cb22f1bc433c701c84c53d8b56eefd5ce7111"
   integrity sha512-Prbz3E1usiAwGjMNYRv6EsJ5c373cX7/AGnZQwOfrpNJrygQJ15+E9OOq4pU8yC977Z5xMetRfc3WmDX6RcjAA==
 
+factorial@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/factorial/-/factorial-2.0.0.tgz#9e5d4d373eb59fc17c9c28521e2c2430860e0e74"
+  integrity sha512-9KcbU/f21MyFd3QT7qzpdYsBkbIJ2qpUDKGW3RIf37OdH4UsozRUCwGOwxeAqW9XJG8QtW/CqnkxoAzpGPxE+A==
+
 hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz#ece0acaf71d62c2969c2ec59feff42a4b1a85b45"

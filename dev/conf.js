@@ -1,6 +1,6 @@
 window.appConf = {
     author: 'Social Époque',
-    dashboardId: '/1umTgn3KLkb-a1BhNFnvebaFPUlGI2L9_agTmvSf6FWY',
+    dashboardId: '1umTgn3KLkb-a1BhNFnvebaFPUlGI2L9_agTmvSf6FWY',
     sendContactMessageUrlId:
         'AKfycbwBdcx7eQOiaVw3oavOk1fXaTHPQZiQmdgPXZ6JFGmE9R80Un4LvXhoCVQeoFSqMdPaxg',
     shortname: 'easydrivecms',
