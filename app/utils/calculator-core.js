@@ -1,5 +1,5 @@
-import React from 'react';
-import factorial from 'factorial';
+
+
 export function evaluate(arrFormula) {
   const arrPostfix = infix2Postfix(arrFormula);
   return evaluatePostfix(arrPostfix);
@@ -193,12 +193,10 @@ export function evaluatePostfix(arrPostfix) {
         stack.push(result);
 
       } else if (item === '!') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = factorial(num1)
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = num1 * factorial(num2);
+        if (num1 === 0 || num1 === 1) return 1;
+        let result = 1;
+        for (let i = 2; i <= num1; i++) {
+          result *= i;
         }
         stack.push(result);
 

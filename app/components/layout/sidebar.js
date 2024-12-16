@@ -69,7 +69,7 @@ export const Sidebar = ({
                     height: 100vh;
                     background-color: #f5f5f5;
                     position: fixed;
-                    width: 50%;
+                    width: 26%;
                     left: 0;
                 }
 
@@ -77,7 +77,7 @@ export const Sidebar = ({
                     height: 100vh;
                     background-color: #f5f5f5;
                     position: fixed;
-                    width: 35%;
+                    width: 32%;
                     left: 25%;
                 }
             }

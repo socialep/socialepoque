@@ -1,7 +1,8 @@
-import { html } from '../lib/htm-preact.js'
-import { Page } from '../components/layout/page.js'
-import prefixUriIfNeeded from '../utils/prefixUriIfNeeded.js'
-import { avoidReload } from '../utils/avoidReload.js'
+import { html } from '../lib/htm-preact.js';
+import { Page } from '../components/layout/page.js';
+import prefixUriIfNeeded from '../utils/prefixUriIfNeeded.js';
+import { avoidReload } from '../utils/avoidReload.js';
+
 
 export const Calculay = () => html`
     <style>
@@ -31,6 +32,14 @@ export const Calculay = () => html`
             margin: 0 0 30px;
         }
 
+        .calculator-container {
+            margin-top: 40px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         footer {
             padding: 10px 0;
             font-size: 1.4rem;
@@ -57,6 +66,7 @@ export const Calculay = () => html`
             border-bottom: none;
         }
     </style>
+
     <${Page}
         title="Calculay"
         subtitle="The LGBTQ+ friendly calculator"
@@ -75,7 +85,7 @@ export const Calculay = () => html`
                     The calculator's goal is not only to calculate, but also to inform/denounce homofobia towards LGBTQIA+ people.
                 </p>
                 <p>
-                    Learn more on how to use your calculator above and how to make the denounce. The app is also able to make scientific calculs.
+                    Learn more on how to use your calculator above and how to make the denounce. The app is also able to make scientific calculations.
                 </p>
             </div>
         </div>
@@ -90,27 +100,25 @@ export const Calculay = () => html`
             </a>
         </footer>
 
-    <footer>
-    <a
-    href="${prefixUriIfNeeded('/termsofuse')}"
-    class="termsofuse"
-    onClick=${avoidReload}
->
-    Terms of use Calculay
-</a>
-    
-        </footer>
-    <footer>
-    <a
-    href="${prefixUriIfNeeded('/maincalculay')}"
-    class="maincalculay"
-    onClick=${avoidReload}
->
-    Download Calculay
-</a>
-    
+        <footer>
+            <a
+                href="${prefixUriIfNeeded('/termsofuse')}"
+                class="termsofuse"
+                onClick=${avoidReload}
+            >
+                Terms of use Calculay
+            </a>
         </footer>
 
+        <footer>
+            <a
+                href="${prefixUriIfNeeded('/maincalculay')}"
+                class="maincalculay"
+                onClick=${avoidReload}
+            >
+                Start Calculay
+            </a>
+        </footer>
 
     <//>
-`
+`;

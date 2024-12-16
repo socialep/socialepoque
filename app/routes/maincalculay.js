@@ -3,6 +3,9 @@ import { Page } from '../components/layout/page.js'
 import prefixUriIfNeeded from '../utils/prefixUriIfNeeded.js'
 import { avoidReload } from '../utils/avoidReload.js'
 
+// Import Calcugay component
+import Calcugay from '../screens/Calcugay.js'
+
 export const Maincalculay = () => html`
     <style>
         .about-content {
@@ -49,6 +52,14 @@ export const Maincalculay = () => html`
             font-size: 1.4rem;
         }
 
+        .calculator-container {
+            background-color: white;
+            padding: 20px;
+            margin-top: -20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         footer a.contact:hover {
             text-decoration: none;
             background-color: transparent;
@@ -61,13 +72,18 @@ export const Maincalculay = () => html`
             .disappear {
                 display: none;
             }
+        }
     </style>
     <${Page}
-        title="Terms of use"
-        subtitle="Calculay"
-        sidebarImage=${prefixUriIfNeeded('/assets/termsofservice.jpg')}
+        title="Calculay"
+        subtitle="Stop disminushing. ADD!"
+        sidebarImage=${prefixUriIfNeeded('/assets/maincalculator.png')}
         showLinks=${true}
-        >
-       
+    >
+        <!-- Insert the Calcugay component here -->
+        <div class="calculator-container">
+            <${Calcugay} />
+        </div>
     <//>
 `
+

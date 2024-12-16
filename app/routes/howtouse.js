@@ -103,12 +103,13 @@ export const Howtouse = () => html`
     
         </footer>
     <footer>
-    <a
-    href="https://play.google.com/store/apps/details?id=com.socialepoque.calculay&pli=1"
-    class=""
->
-    Download Calculay
-</a>
+        <a
+                href="${prefixUriIfNeeded('/maincalculay')}"
+                class="maincalculay"
+                onClick=${avoidReload}
+            >
+                Start Calculay
+            </a>
     
         </footer>
 
