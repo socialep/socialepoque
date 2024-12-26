@@ -5,6 +5,7 @@ import { html, Component } from '../lib/htm-preact.js';
 // Components
 import Screen from '../components/Screen/Screen.js';
 import Numpad from '../components/Numpad/Numpad.js';
+import History from '../components/History/History.js';
 
 // Utils
 import * as Calculator from '../utils/calculator-core.js';
@@ -15,9 +16,24 @@ class Calcugay extends Component {
     // Initial state
     this.state = {
       formula: [],
+      history: [],
       input: '0',
       afterCalculation: false,
     };
+    this.localHistorico = "localHistorico";
+  }
+
+  saveMyHistory = async (elhistorico) => {
+    await AsyncStorage.setItem(this.localHistorico, JSON.stringify(elhistorico));
+  };
+  
+  readMyHistory = async () => {
+    const retorno = await AsyncStorage.getItem(this.localHistorico);
+    this.setState({ history: JSON.parse(retorno || "[]") });
+  };
+  
+  componentDidMount() {
+    this.leerMyBackground();
   }
 
   // Handle digits
@@ -65,19 +81,146 @@ class Calcugay extends Component {
       afterCalculation: false,
     });
   };
+  
+    // Handle parentheses
+    onParenthesis = (parenthesis) => {
+      const { input, formula } = this.state;
+  
+      if (parenthesis === '(') {
+        if (
+          (Calculator.isNumber(input) && input !== '0') ||
+          (Calculator.isNumber(input) && input === '0' && formula.length > 0) ||
+          input === ')'
+        ) {
+          this.setState({
+            input: parenthesis,
+            formula: [...formula, input, '*'],
+            afterCalculation: false,
+          });
+        } else if (Calculator.isOperator(input) || input === '(') {
+          this.setState({
+            input: parenthesis,
+            formula: [...formula, input],
+            afterCalculation: false,
+          });
+        } else if (
+          Calculator.isNumber(input) &&
+          input === '0' &&
+          formula.length === 0
+        ) {
+          this.setState({ input: parenthesis, afterCalculation: false });
+        }
+      } else {
+        const arrayOpenParenthesis = formula.join('').match(/\(/g);
+        const numOpenParenthesis = arrayOpenParenthesis
+          ? arrayOpenParenthesis.length
+          : 0;
+  
+        const arrayCloseParenthesis = formula.join('').match(/\)/g);
+        const numCloseParenthesis = arrayCloseParenthesis
+          ? arrayCloseParenthesis.length
+          : 0;
+  
+        if (
+          (Calculator.isNumber(input) || input === ')') &&
+          numOpenParenthesis > 0 &&
+          numOpenParenthesis > numCloseParenthesis
+        ) {
+          this.setState({
+            input: parenthesis,
+            formula: [...formula, input],
+            afterCalculation: false,
+          });
+        }
+      }
+    };
 
-  // Equal function
-  onEqual = () => {
-    const { formula, input } = this.state;
-    const finalFormula = [...formula, input];
-    const result = Calculator.evaluate(finalFormula);
+    // Handle decimal points
+onDecimal = (decimal) => {
+  const { input, formula, afterCalculation } = this.state;
 
+  if (afterCalculation) {
     this.setState({
+      input: `0${decimal}`,
+      afterCalculation: false,
+    });
+  } else if (Calculator.isNotNumber(input)) {
+    this.setState({
+      input: `0${decimal}`,
+      formula: [...formula, input],
+    });
+  } else if (!input.includes(decimal)) {
+    this.setState({
+      input: input + decimal,
+    });
+  }
+};
+
+
+onEqual = () => {
+  let finalFormula = this.state.formula.concat(this.state.input);
+
+  // Handle negative sign at the beginning of the formula
+  if (finalFormula[0] === "-" && finalFormula.length > 1) {
+    finalFormula = ["0"].concat(finalFormula);
+  }
+
+  const lastOperator = finalFormula[finalFormula.length - 1];
+  if (
+    Calculator.isOperator(lastOperator) &&
+    lastOperator !== "!" &&
+    lastOperator !== "π" &&
+    lastOperator !== "²" &&
+    lastOperator !== "³" &&
+    lastOperator !== "%"
+  ) {
+    this.setState({
+      input: "Error",
       formula: [],
-      input: result.toString(),
       afterCalculation: true,
     });
-  };
+    return; // Exit the function
+  }
+
+  const result = Calculator.evaluate(finalFormula);
+
+  if (!Number.isNaN(result)) {
+    const newHistoryItem = {
+      formula: finalFormula,
+      result: result,
+    };
+
+    this.setState((prevState) => ({
+      input: result + "",
+      formula: [],
+      history: [newHistoryItem, ...prevState.history],
+      afterCalculation: true,
+    }), () => {
+      this.saveMyHistory(this.state.history);
+    });
+  }
+};
+
+onClearHistory = () => {
+  this.setState({ history: [] }, () => {
+    this.saveMyHistory([]);
+  });
+};
+
+onHistoryItemClicked = ({ target }) => {
+  const number = target.getAttribute("value");
+
+  this.setState((prevState) => {
+    if (Calculator.isNumber(prevState.input)) {
+      return { input: number };
+    } else {
+      return {
+        input: number,
+        formula: prevState.formula.concat(prevState.input),
+      };
+    }
+  });
+};
 
   // Backspace function
   onBackspace = () => {
@@ -100,15 +243,11 @@ class Calcugay extends Component {
 
   render() {
     const { formula, input } = this.state;
-
+  
     return html`
-        <style>
-        .about-content {
-            display: block;
-        }
+      <style>
         .calcugay-container-main {
           display: flex;
-          borderRadius: "10%";
           flex-direction: column;
           align-items: center;
           justify-content: center;
@@ -117,71 +256,63 @@ class Calcugay extends Component {
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
+          margin-top: -5rem;
+          border-radius: 1rem;
         }
-
-        .about-content img.image {
-            width: 150px;
-            border: 0;
-            vertical-align: middle;
-            float: left;
-            margin-right: 2rem;
+  
+        .calcugay-content {
+          display: flex;
+          flex-direction: row; /* Arrange history and numpad side by side */
+          gap: 2rem; /* Add space between the components */
+          align-items: flex-start; /* Align items to the top */
         }
-
-        .info-title {
-            margin: 30px 0 20px;
-            font-size: 3.8rem;
-            font-weight: 700;
-            line-height: 1.1;
-            font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+  
+        .history-container {
+          flex: 1;
+          max-width: 300px; /* Adjust width as needed */
+          overflow-y: auto; /* Enable scrolling if content overflows */
         }
-
-        .info p {
-            font-size: 2rem;
-            margin: 0 0 30px;
+  
+        .numpad-container {
+          flex: 2;
+          display: flex;
+          flex-direction: column;
         }
-
-        footer {
-            padding: 10px 0;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            font-weight: 700;
-            font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
-            text-transform: uppercase;
+  
+        @media (max-width: 768px) {
+          .calcugay-content {
+            flex-direction: column; /* Stack components vertically on smaller screens */
+            align-items: center;
+          }
         }
-
-        footer a.contact {
-            text-decoration: none;
-            background-color: transparent;
-            color: #999;
-            border-bottom: none;
-            font-size: 1.4rem;
-        }
-
-        footer a.contact:hover {
-            text-decoration: none;
-            background-color: transparent;
-            color: #333;
-            outline: 0;
-            transition: all 0.4s;
-            border-bottom: none;
-        }
-        termsofuse {
-            margin-left: 20px;
-        }
-        
-    </style>
+      </style>
+  
       <div class="calcugay-container-main">
         <${Screen} formula=${formula} input=${input} />
-        <${Numpad}
-          onClear=${this.onClear}
-          onEqual=${this.onEqual}
-          onDigit=${this.onDigit}
-          onOperator=${this.onOperator}
-          onBackspace=${this.onBackspace}
-        />
+        <div class="calcugay-content">
+          <div class="history-container">
+            <${History}
+              history=${this.state.history}
+              onHistoryItemClicked=${this.onHistoryItemClicked}
+              onEqual=${this.onEqual}
+              onClearHistory=${this.onClearHistory}
+            />
+          </div>
+          <div class="numpad-container">
+            <${Numpad}
+              onClear=${this.onClear}
+              onEqual=${this.onEqual}
+              onDigit=${this.onDigit}
+              onDecimal=${this.onDecimal}
+              onParenthesis=${this.onParenthesis}
+              onOperator=${this.onOperator}
+              onBackspace=${this.onBackspace}
+            />
+          </div>
+        </div>
       </div>
     `;
-  }
+  }  
 }
 
 export default Calcugay;

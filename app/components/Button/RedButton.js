@@ -9,7 +9,7 @@ const RedButton = (props) => {
         justifyContent: "center", // Horizontal alignment
         alignItems: "center", // Vertical alignment
         marginTop: "1rem",
-        borderRadius: "50%",
+        borderRadius: "10%",
         width: "5rem",
         height: "5rem",
         backgroundColor: "red",

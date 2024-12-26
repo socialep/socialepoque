@@ -6,14 +6,14 @@ const Screen = ({ input, formula }) => {
   <style>
   .screen-container {
     width: 100%;
-    height: 50px; /* Adjusted height for the container */
+    height: 100%; /* Adjusted height for the container */
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
   .screen {
-    height: 90px; /* Adjust height of the screen */
+    height: 7rem; /* Adjust height of the screen */
     background-color: white;
     width: 90%;
     border-radius: 10px;

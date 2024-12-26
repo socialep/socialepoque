@@ -53,7 +53,7 @@ export const Maincalculay = () => html`
         }
 
         .calculator-container {
-            background-color: white;
+                        background-color: blue;
             padding: 20px;
             margin-top: -20px;
             border-radius: 10px;
@@ -81,7 +81,7 @@ export const Maincalculay = () => html`
         showLinks=${true}
     >
         <!-- Insert the Calcugay component here -->
-        <div class="calculator-container">
+        <div>
             <${Calcugay} />
         </div>
     <//>
