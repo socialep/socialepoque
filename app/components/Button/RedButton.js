@@ -17,6 +17,14 @@ const RedButton = (props) => {
         cursor: "pointer",
       }}
       onClick=${props.onClick}
+                  onMouseEnter=${(e) => {
+        e.currentTarget.style.backgroundColor = "white"; // Change to desired hover background color
+        e.currentTarget.querySelector("span").style.color = "red"; // Change to desired hover text color
+      }}
+      onMouseLeave=${(e) => {
+        e.currentTarget.style.backgroundColor = "red"; // Revert to original background color
+        e.currentTarget.querySelector("span").style.color = "white"; // Revert to original text color
+      }}
     >
       <span
         style=${{

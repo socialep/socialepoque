@@ -30,16 +30,16 @@ const Screen = ({ input, formula }) => {
     margin-bottom: -10px;
   }
   
-  .labelformula {
+  .formula {
     color: #3da4ab;
     font-size: 16px; /* Adjusted font size */
     margin-right: 20px;
   }
   </style>
-    <div class="screen-container">
+    <div class="screen">
+                  <p class="formula" style="margin-left: 20px">${formula.join('')}</p>
       <div class="screen">
-        <p class="label">${input}</p>
-        <p class="labelformula">${formula.join('')}</p>
+              <p class="label">${input}</p>
       </div>
     </div>
   `;

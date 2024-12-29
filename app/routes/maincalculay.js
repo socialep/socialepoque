@@ -53,8 +53,7 @@ export const Maincalculay = () => html`
         }
 
         .calculator-container {
-                        background-color: blue;
-            padding: 20px;
+            background-color: blue;
             margin-top: -20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -68,11 +67,8 @@ export const Maincalculay = () => html`
             transition: all 0.4s;
             border-bottom: none;
         }
-        @media (max-width: 1202px) {
-            .disappear {
-                display: none;
-            }
-        }
+    
+    
     </style>
     <${Page}
         title="Calculay"

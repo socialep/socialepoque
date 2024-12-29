@@ -43,8 +43,23 @@ export const Page = ({
                 margin: 0;
                 width: 100%;
             }
+                
+            .wrapper {
+                position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    max-width: 100%;
+    }
             section.page-content {
-                padding: 5rem;
+                padding-top: 5rem;
+                padding-left: 0.5rem;
                 overflow-x: hidden;
                 max-width: 100%;
                 transition: width linear 750ms;

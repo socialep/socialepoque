@@ -16,6 +16,14 @@ const GreenButton = (props) => {
         cursor: "pointer",
       }}
       onClick=${props.onClick}
+            onMouseEnter=${(e) => {
+        e.currentTarget.style.backgroundColor = "white"; // Change to desired hover background color
+        e.currentTarget.querySelector("span").style.color = "green"; // Change to desired hover text color
+      }}
+      onMouseLeave=${(e) => {
+        e.currentTarget.style.backgroundColor = "green"; // Revert to original background color
+        e.currentTarget.querySelector("span").style.color = "white"; // Revert to original text color
+      }}
     >
       <span
         style=${{

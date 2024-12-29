@@ -156,7 +156,7 @@ export const Sidebar = ({
                 border-color: #122b40;
                 text-decoration: none;
             }
-            @media (max-width: 902px) {
+            @media (max-width: 1220px) {
                 aside.sidebar {
                     display: none; /* Hide sidebar on small screens */
                 }

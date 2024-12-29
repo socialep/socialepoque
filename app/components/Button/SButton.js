@@ -16,6 +16,14 @@ const SButton = ({ label, onClick }) => {
         cursor: "pointer",
       }}
       onClick=${onClick}
+                        onMouseEnter=${(e) => {
+        e.currentTarget.style.backgroundColor = "white"; // Change to desired hover background color
+        e.currentTarget.querySelector("span").style.color = "purple"; // Change to desired hover text color
+      }}
+      onMouseLeave=${(e) => {
+        e.currentTarget.style.backgroundColor = "purple"; // Revert to original background color
+        e.currentTarget.querySelector("span").style.color = "white"; // Revert to original text color
+      }}
     >
       <span
         style=${{

@@ -1,5 +1,4 @@
 
-
 export function evaluate(arrFormula) {
   const arrPostfix = infix2Postfix(arrFormula);
   return evaluatePostfix(arrPostfix);
@@ -21,14 +20,15 @@ export function isNotNumber(input) {
     input === 'e' ||
     input === 'log' ||
     input === '/10' ||
-    input === '' ||
+    input === 'xʸ' ||
     input === '³' ||
     input === '²' ||
     input === '√' ||
+    input === 'y√x' ||
     input === '10ʸ' ||
     input === 'In' ||
-    input === '!' ||
-    input === '³√'||
+    input === 'x!' ||
+    input === '³√' ||
     input === 'asin'||
     input === 'sinh' ||
     input === 'acos' ||
@@ -59,14 +59,15 @@ export function isOperator(input) {
     input === 'e' ||
     input === 'log' ||
     input === '/10' ||
-    input === '' ||
+    input === 'xʸ' ||
     input === '³' ||
     input === '²' ||
     input === '√' ||
+    input === 'y√x' ||
     input === '10ʸ' ||
     input === 'In' ||
-    input === '!' ||
-    input ===  '³√'||
+    input === 'x!' ||
+    input === '³√'||
     input === 'asin'||
     input === 'sinh'||
     input === 'acos' ||
@@ -143,220 +144,125 @@ export function evaluatePostfix(arrPostfix) {
     if (isNumber(item)) {
       stack.push(item);
     } else if (isOperator(item)) {
-      if (item === 'cos') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.cos(num1).toFixed(10);
+      const num1 = Number.parseFloat(stack.pop()),
+        num2 = Number.parseFloat(stack.pop());
+      let result = '';
 
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.sin(num1)).toFixed(10);
-        }
-        stack.push(result);
-      } else if (item === 'sin') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.sin(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.sin(num1)).toFixed(10);
-        }
-        stack.push(result);
+      if (item === '-' && isNaN(num1) && stack.length === 0) {
+        num1 = -num1; // Make negative if "-" is the first digit
+      } 
 
-      } else if (item === 'tan') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.tan(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.tan(num1)).toFixed(10);
-        }
-        stack.push(result);
-
-      } else if (item === 'log') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.log10(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num1 * Math.log10(num2)).toFixed(10);
-        }
-        stack.push(result);
-
-      }  else if (item === '%') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = num1 /100;
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = num2 * num1/100;
-        }
-        stack.push(result);
-
-      } else if (item === '!') {
-        if (num1 === 0 || num1 === 1) return 1;
-        let result = 1;
-        for (let i = 2; i <= num1; i++) {
-          result *= i;
-        }
-        stack.push(result);
-
-      } else if (item === '²') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.pow(num1, 2);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = num2 * Math.pow(num1, 2) ;
-        }
-        stack.push(result);
-
-      } else if (item === '³') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.pow(num1, 3) ;
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = num2 * Math.pow(num1, 3) ;
-        }
-        stack.push(result);
-
-      } else if (item === 'cosh') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.cosh(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.cosh(num1)).toFixed(10);
-        }
-        stack.push(result);
-
-      } else if (item === 'sinh') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.sinh(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.sinh(num1)).toFixed(10);
-        }
-        stack.push(result);
-
-      } else if (item === 'tanh') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.tanh(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.tanh(num1)).toFixed(10);
-        }
-        stack.push(result);
-
-      } else if (item === 'π') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = num1 * Math.PI;
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = num1 * Math.PI * num2  ;
-        }
-        stack.push(result);
-
-      } else if (item === '³√') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.cbrt(num1) ;
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result =  num2 * Math.cbrt(num1);
-        }
-        stack.push(result);
-
-      } else if (item === '√') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.sqrt(num1);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result =  num2 * Math.sqrt(num1);
-        }
-        stack.push(result);
-
-      } else if (item === 'acos') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.acos(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.acos(num1)).toFixed(10);
-        }
-        stack.push(result);
-
-      } else if (item === 'atan') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.atan(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.atan(num1)).toFixed(10);
-        }
-        stack.push(result);
-
-      } else if (item === 'asin') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.asin(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num2 * Math.asin(num1)).toFixed(10);
-        }
-        stack.push(result);
-
-      } else if (item === 'In') {
-        const num1 = Number.parseFloat(stack.pop());
-        let result = Math.log(num1).toFixed(10);
-        
-        if (stack.length > 0) {
-          const num2 = Number.parseFloat(stack.pop());
-          result = (num1 * Math.log(num2)).toFixed(10);
-        }
-        stack.push(result);
-
+      switch (item) {
+        case '+':
+          result = num2 + num1;
+          break;
+        case '-':
+          result = num2 - num1;
+          break;
+        case '*':
+          result = num2 * num1;
+          break;
+        case '/':
+          result = num2 / num1;
+          break;
+        case '%':
+          result = num2 * num1/ 100 || num1/100;
+          break;
+        case 'cos':
+          result = num2 * Math.cos(num1) ||  Math.cos(num1) ;
+          break;
+        case 'sin':
+          result = num2 * Math.sin(num1) ||  Math.sin(num1);
+          break;
+        case 'tan':
+          result = num2 * Math.tan(num1) ||  Math.tan(num1) ;
+          break;
+        case 'π':
+          result = num1 * Math.PI || num2 * Math.PI  ;
+          break;
+        case 'e':
+          result = Math.E(num2) ;
+          break;
+        case 'log':
+          result = Math.log10(num1) || num2 * Math.log10(num1);
+          break;
+        case 'In':
+          result = Math.log(num1) || num2 * Math.log(num1);
+          break;
+        case '/10':
+          result = num1/10;
+          break;
+        case '²':
+            if (isNaN(num1) && isNaN(num2)) {
+    // No numbers have been provided yet; default result to 0
+    result = 0;
+  } else if (isNaN(num2)) {
+    // Only num2 is provided; square num2
+    result = Math.pow(num1, 2);
+  } else if (!isNaN(num2)) {
+    // Both num2 and num1 are provided; square num2 and multiply by num1
+    result = Math.pow(num2, 2) * num1;
+  }
+          break;
+        case '³':
+          result = Math.pow(num1, 3) || num2 * Math.pow(num1, 3)  ;
+          break;
+        case '√':
+          if (num2 === 0) {
+            // Only one number (num1) is provided; calculate the square root of num1
+            result = Math.sqrt(num1);
+          } else {
+            // Both numbers are provided; calculate num2 * sqrt(num1)
+            result = num2 * Math.sqrt(num1);
+          }
+          break;
+        case '³√':
+          result = Math.cbrt(num1) || num2 * Math.cbrt(num1);
+          break;
+        case '10ʸ':
+          result = Math.pow(10, num1) || num2 * Math.pow(10, num1);
+          break;
+          case 'asin':
+          result = num2 * Math.asin(num1) ||  Math.asin(num1)
+          break;
+          case 'sinh':
+          result = num2 * Math.sinh(num1) ||  Math.sinh(num1)
+          break;
+          case 'cosh':
+          result = num2 * Math.cosh(num1) ||  Math.cosh(num1)
+          break;
+          case 'acos':
+          result = num2 * Math.acos(num1) ||  Math.acos(num1)
+          break;
+          case 'atan':
+          result = num2 * Math.atan(num1) ||  Math.atan(num1)
+          break;
+          case 'tanh':
+          result = num2 * Math.tanh(num1) ||  Math.tanh(num1)
+          break;
+          case 'eʸ':
+          result = Math.exp(num1) || num2 *  Math.exp(num1) ;
+          break;
+          case '|x|':
+          result = Math.abs(num1) || num2 *  Math.abs(num1) ;
+          break;
+          case 'xʸ':
+          result = Math.pow(num2, num1)
+          break;
+          case 'y√x':
+            result = Math.pow(num2, 1 / num1) ;
+            break;
+        case 'x!':
+          result = factorial(num1) || num2 *  factorial(num1) ;
+          break;
+        case '2ʸ':
+        result = Math.pow(2, num2) || num1 *  Math.pow(2, num2)  ;
+          break;
+        default:
+          console.log('Something else!!!');
       }
 
-      else {
-        const num1 = Number.parseFloat(stack.pop());
-        const num2 = Number.parseFloat(stack.pop());
-        let result = '';
-
-         if (item === '-' && isNaN(num1) && stack.length === 0) {
-          num1 = -num1; // Make negative if "-" is the first digit
-        } 
-
-        switch (item) {
-          case '+':
-            result = num2 + num1;
-            break;
-          case '-':
-            result = num2 - num1;
-            break;
-          case '*':
-            result = num2 * num1;
-            break;
-          case '/':
-            result = num2 / num1;
-            break;
-          // Handle other operators as needed
-          case '':
-            result = Math.pow(num2, num1);
-            break;
-          case '':
-            result = Math.pow(num2, num1);
-            break;
-          default:
-            console.log('Something else!!!');
-        }
-
-        stack.push(result + '');
-      }
+      stack.push(result + '');
     } else {
       console.log('Something else!!!');
     }

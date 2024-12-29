@@ -38,13 +38,14 @@ class History extends Component {
     align-items: center;
     z-index: 9999; /* Ensure it's above all other content */
   }
+
   .historicbutton {
        display: "flex",
         justify-content: "center", // Horizontal alignment
         align-items: "center", // Vertical alignment
-        margin-top: "1rem",
+        margin-top: "-0.5rem",
         border-radius: "10%",
-        width: "5rem",
+        width: "8rem",
         height: "5rem",
         background-color: "purple",
         box-shadow: "0px 2px 4px rgba(0, 0, 0, 0.2)", // Mimicking the ripple effect styling
@@ -77,7 +78,10 @@ class History extends Component {
     font-size: 1.5rem;
     cursor: pointer;
   }
-  
+  .btn-warning:hover {
+    background-color: white; /* Desired hover background color */
+  }
+
   /* Alert body styling */
   .alert-body {
     margin: 20px 0;
@@ -137,10 +141,16 @@ class History extends Component {
         
         <!-- Open Alert Button -->
         <button
-          class="btn btn-warning d-flex align-items-center historicbutton"
-          onClick=${this.toggleAlert}
-          
-          style="width: 5rem; height: 5rem; margin-top: 2rem; colorborder-radius: 5px; background-color: purple; cursor: "pointer";"
+          onClick=${this.toggleAlert}  
+                  onMouseEnter=${(e) => {
+        e.currentTarget.style.backgroundColor = "white"; // Change to desired hover background color
+        e.currentTarget.querySelector("span").style.color = "purple"; // Change to desired hover text color
+      }}
+      onMouseLeave=${(e) => {
+        e.currentTarget.style.backgroundColor = "purple"; // Revert to original background color
+        e.currentTarget.querySelector("span").style.color = "white"; // Revert to original text color
+      }} 
+          style="width: 5rem; height: 5rem; margin-top: 1.5rem; colorborder-radius: 5px; background-color: purple; cursor: "pointer";"
         >
           <span
             style=${{

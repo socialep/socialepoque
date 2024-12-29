@@ -17,22 +17,15 @@ const WhiteLabel = ({ label, onClick, onLongPress }) => {
         cursor: "pointer",
       }}
       onClick=${onClick}
-      onContextMenu=${(e) => {
-        e.preventDefault(); // Prevent default context menu
-        if (onLongPress) onLongPress(); // Trigger long press if provided
+                  onMouseEnter=${(e) => {
+        e.currentTarget.style.backgroundColor = "white"; // Change to desired hover background color
+        e.currentTarget.querySelector("span").style.color = "purple"; // Change to desired hover text color
+      }}
+      onMouseLeave=${(e) => {
+        e.currentTarget.style.backgroundColor = "purple"; // Revert to original background color
+        e.currentTarget.querySelector("span").style.color = "white"; // Revert to original text color
       }}
     >
-      <div
-        style=${{
-          backgroundColor: "purple",
-          borderRadius: "1rem", // Matches wp(5)
-          width: "5rem", // Matches wp(17)
-          height: "5rem", // Matches wp(17)
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
         <span
           style=${{
             color: "white",
@@ -42,7 +35,6 @@ const WhiteLabel = ({ label, onClick, onLongPress }) => {
         >
           ${label}
         </span>
-      </div>
     </div>
   `;
 };

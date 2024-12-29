@@ -54,16 +54,15 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                 font-size: 1.6rem;
             }
             .menu ul.menu-list {
-                padding: 10px 0;
                 font-size: 1.6rem;
-                margin-bottom: 20px;
-                margin-top: 0px;
                 list-style-type: none;
+                padding-left: 20px;
             }
             .item {
                 margin: 0;
                 list-style: none;
                 padding: 10px 0;
+                padding-left: 10px;
                 font-size: 1.6rem;
             }
             .item-link {
@@ -77,9 +76,21 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                 cursor: pointer;
                 font-family: Arial;
             }
+            .item-main {
+                color: #dadada;
+                font-weight: 500;
+                font-size: large;
+                border-bottom: 0 transparent;
+                background-color: transparent;
+                outline: 0;
+                border: 0;
+                font-family: Arial;
+                font-weight: bold;
+            }
             .menu-label {
                 color: #dadada;
                 margin-left: 20px;
+                margin-bottom: -1rem;
                 font-weight: 500;
                 font-size: large;
                 border-bottom: 0 transparent;
@@ -101,9 +112,7 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                 width: 40%;
             }
             .sub-list {
-                margin-left: 15px;
                 position: relative;
-                padding: 10px 0;
                 margin-bottom: 0;
                 font-size: 1.6rem;
                 margin-top: 0;
@@ -143,6 +152,14 @@ export const Menu = ({ categories, articles, menuVisible }) => {
         </style>
         <nav id="menu" class="menu ${menuVisible ? 'menu-open' : ''}">
             <ul class="menu-list">
+                            <li class="item">
+                    <i class="fas fa-home icon" />
+                    <p
+                        class="item-main"
+                    >
+                        MENU SOCIAL ÉPOQUE
+                    </p>
+                </li>
                 <li class="item">
                     <i class="fas fa-home icon" />
                     <a
@@ -209,56 +226,6 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                         Contact us
                     </a>
                 </li>
-            </ul>
-            <hr class="separator" />
-            <p class="menu-label">Articles by category</p>
-            <ul class="menu-list">
-                ${Object.values(categories).map(
-                    (category, index) => html`
-                        <li key=${category.id}>
-                            <i class="fas fa-angle-right icon" />
-                            <button
-                                title=${category.title}
-                                onClick=${toggleCategory}
-                                class="item-link"
-                                data-category=${category.id}
-                            >
-                                ${category.title}
-                            </button>
-
-                            <ul class="sub-list">
-                                ${Object.values(articles)
-                                    .filter(
-                                        (article) =>
-                                            article.categoryId === category.id
-                                    )
-                                    .map(
-                                        (article) => html`
-                                            <li
-                                                key=${article.id}
-                                                class="sub-item ${category.id ===
-                                                activeCategory
-                                                    ? 'sub-item-expanded'
-                                                    : ''}"
-                                            >
-                                                <a
-                                                    key=${article.id}
-                                                    title=${article.title}
-                                                    href="${prefixUriIfNeeded(
-                                                        article.uri
-                                                    )}"
-                                                    class="sub-item-link"
-                                                    onClick=${avoidReload}
-                                                >
-                                                    ${article.title}
-                                                </a>
-                                            </li>
-                                        `
-                                    )}
-                            </ul>
-                        </li>
-                    `
-                )}
             </ul>
         </nav>`
 }

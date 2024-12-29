@@ -165,6 +165,18 @@ onEqual = () => {
     finalFormula = ["0"].concat(finalFormula);
   }
 
+  // Ensure the formula ends correctly if the last input is ')'
+  const openParentheses = finalFormula.filter((char) => char === '(').length;
+  const closeParentheses = finalFormula.filter((char) => char === ')').length;
+
+  if (openParentheses > closeParentheses) {
+    // Add missing closing parentheses to balance the equation
+    const missingParentheses = openParentheses - closeParentheses;
+    for (let i = 0; i < missingParentheses; i++) {
+      finalFormula.push(')');
+    }
+  }
+
   const lastOperator = finalFormula[finalFormula.length - 1];
   if (
     Calculator.isOperator(lastOperator) &&
@@ -200,6 +212,7 @@ onEqual = () => {
     });
   }
 };
+
 
 onClearHistory = () => {
   this.setState({ history: [] }, () => {

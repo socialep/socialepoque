@@ -115,7 +115,7 @@ export const Footer = ({
                 }
 
                 .other-article-narrow {
-                    width: 40%;
+                    width: 80%;
                     margin-right: 5%;
                     margin-left: 5%;
                 }
