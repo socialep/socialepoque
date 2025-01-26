@@ -3,7 +3,6 @@ import { Menu } from './menu.js'
 import { Sidebar } from './sidebar.js'
 import { buttonsStyles } from '../../styles/buttons.js'
 import { blocksStyles } from '../../styles/blocks.js'
-import { MenuBurger } from './menuBurger.js'
 import { useCategoriesAndArticles } from '../../hooks/useCategoriesAndArticles.js'
 import { usePageMeta } from '../../hooks/usePageMeta.js'
 import { useMenuVisible } from '../../hooks/useMenuVisible.js'
@@ -119,7 +118,6 @@ export const Page = ({
             }
         </style>
         <div class="wrapper page">
-            <${MenuBurger} toggleMenuVisible=${toggleMenuVisible} />
             <${Menu}
                 articles=${articles}
                 categories=${categories}

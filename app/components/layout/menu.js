@@ -1,64 +1,84 @@
-import { html, useEffect, useState } from '../../lib/htm-preact.js'
-import { avoidReload } from '../../utils/avoidReload.js'
-import prefixUriIfNeeded from '../../utils/prefixUriIfNeeded.js'
+import { html, useState, useEffect } from '../../lib/htm-preact.js';
+import { avoidReload } from '../../utils/avoidReload.js';
+import prefixUriIfNeeded from '../../utils/prefixUriIfNeeded.js';
+import { MenuBurger } from './MenuBurger.js'; // Import the MenuBurger component
 
-export const Menu = ({ categories, articles, menuVisible }) => {
-    const [activeCategory, setActiveCategory] = useState(false)
-    const toggleCategory = (event) => {
-        const category = event.target.dataset.category
-        setActiveCategory(category !== activeCategory ? category : false)
-    }
+export const Menu = ({ categories, articles }) => {
+    const [menuVisible, setMenuVisible] = useState(false);
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
+
+    // Handle screen resize
+    const handleResize = () => {
+        setIsSmallScreen(window.innerWidth <= 768);
+        if (window.innerWidth > 768) {
+            setMenuVisible(false); // Ensure menu is hidden for wider screens
+        }
+    };
+
+    // Toggle menu visibility
+    const toggleMenuVisible = () => {
+        setMenuVisible(!menuVisible);
+    };
+
     useEffect(() => {
-        setActiveCategory(Object.values(categories)?.[0]?.id)
-    }, [categories])
-    return html` <style>
-            .menu {
-                background-color: #333;
-                overflow: hidden;
-                z-index: 10;
-                display: block;
-                top: 0;
-                left: 0;
-                height: 100%;
-                box-shadow: #000 2px 2px 10px;
-                padding-top: 5rem;
-                transition: opacity linear 750ms, width linear 750ms;
-                width: 0;
-                opacity: 0;
-                padding-right: 0;
-                position: fixed;
+        // Initialize and listen for resize events
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return html`
+        <style>
+  .menu {
+    background-color: black;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    overflow-x: hidden;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    z-index: 10; /* Appears over main content */
+    opacity: 0;
+    visibility: hidden; /* Add visibility to hide it fully */
+}
+
+.menu-open {
+    width: 75%; /* Adjust width as needed */
+    opacity: 1;
+    visibility: visible; /* Make it visible when open */
+}
+
+@media (min-width: 768px) {
+    .menu {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        background-color: black;
+        opacity: 1;
+        visibility: visible; /* Always visible on larger screens */
+    }
+    .menu-open {
+        width: auto;
+    }
+}
+
+            .menu-list {
+                list-style: none;
+                padding: 2rem;
+                margin: 0;
             }
-            .menu-open {
-                opacity: 1;
-                width: 100%;
+            .menu-list li {
+                margin: 1rem 0;
+                cursor: pointer;
             }
-            @media (min-width: 768px) {
-                .menu-open {
-                    width: 40%;
-                }
-            }
-            @media (min-width: 992px) {
-                .menu-open {
-                    width: 30%;
-                }
-            }
-            @media (min-width: 1200px) {
-                .menu-open {
-                    width: 25%;
-                }
+            .menu-list a {
+                text-decoration: none;
+                color: inherit;
+                font-size: 1.6rem;
             }
 
-            .icon {
-                padding: 0 20px;
-                color: #dadada;
-                font-size: 1.6rem;
-            }
-            .menu ul.menu-list {
-                font-size: 1.6rem;
-                list-style-type: none;
-                padding-left: 20px;
-            }
-            .item {
+                  .item {
                 margin: 0;
                 list-style: none;
                 padding: 10px 0;
@@ -79,6 +99,7 @@ export const Menu = ({ categories, articles, menuVisible }) => {
             .item-main {
                 color: #dadada;
                 font-weight: 500;
+                margin-top: 50px;
                 font-size: large;
                 border-bottom: 0 transparent;
                 background-color: transparent;
@@ -98,134 +119,58 @@ export const Menu = ({ categories, articles, menuVisible }) => {
                 font-family: Arial;
             }
             .item-link:hover {
-                color: #fff;
+                color: gray;
                 outline: 0;
             }
             .item-link:focus {
                 outline: 0;
             }
-            .separator {
-                margin: 20px auto;
-                display: block;
-                border: 1px solid #dededc;
-                height: 0;
-                width: 40%;
-            }
-            .sub-list {
-                position: relative;
-                margin-bottom: 0;
-                font-size: 1.6rem;
-                margin-top: 0;
-            }
-            .sub-item {
-                padding: 0;
-                height: 0;
-                overflow: hidden;
-                opacity: 0.1;
-                position: relative;
-                font-size: small;
-                margin: 0;
-                list-style: none;
-                transition: opacity ease 750ms, height linear 750ms;
-            }
-            .sub-item-expanded {
-                opacity: 1;
-                height: 4.5rem;
-                transition: opacity ease 750ms, height linear 750ms;
-            }
-            .sub-item-link {
-                font-size: medium;
-                position: relative;
-                color: #dadada;
-                font-weight: 500;
-                border-bottom: 0 transparent;
-                text-decoration: none;
-                background-color: transparent;
-                font-style: normal;
-                top: 10px;
-                font-family: Arial;
-            }
-            .sub-item-link:hover {
-                border-bottom: none;
-                color: #fff;
-            }
+
         </style>
-        <nav id="menu" class="menu ${menuVisible ? 'menu-open' : ''}">
+        <!-- MenuBurger Button -->
+        ${isSmallScreen &&
+        html`
+            <${MenuBurger} toggleMenuVisible=${toggleMenuVisible} />
+        `}
+        <!-- Menu navigation -->
+        <nav class="menu ${menuVisible ? 'menu-open' : ''}">
             <ul class="menu-list">
-                            <li class="item">
-                    <i class="fas fa-home icon" />
-                    <p
+                      <p
                         class="item-main"
                     >
                         MENU SOCIAL ÉPOQUE
                     </p>
-                </li>
                 <li class="item">
-                    <i class="fas fa-home icon" />
-                    <a
-                        href="${prefixUriIfNeeded('/')}"
-                        title="Home"
-                        class="item-link"
-                        onClick=${avoidReload}
-                    >
+                    <a class="item-link" href="${prefixUriIfNeeded('/')}" onClick=${avoidReload}>
                         Blog Social Époque
                     </a>
                 </li>
                 <li class="item">
-                    <i class="fas fa-plus icon" />
-                    <a
-                        href="${prefixUriIfNeeded('/about')}"
-                        title="About"
-                        class="item-link"
-                        onClick=${avoidReload}
-                    >
+                    <a class="item-link" href="${prefixUriIfNeeded('/about')}" onClick=${avoidReload}>
                         About Social Époque
                     </a>
                 </li>
                 <li class="item">
-                <i class="fas fa-pen icon" />
-                <a
-                    href="${prefixUriIfNeeded('/requirements')}"
-                    title="Publish your article"
-                    class="item-link"
-                    onClick=${avoidReload}
-                >
-                     Publish your article
-                </a>
-            </li>
-            <li class="item">
-            <i class="fas fa-user icon"  />
-            <a
-                href="${prefixUriIfNeeded('/network')}"
-                title="Network"
-                class="item-link"
-                onClick=${avoidReload}
-            >
-                 Network
-            </a>
-        </li>
+                    <a class="item-link" href="${prefixUriIfNeeded('/requirements')}" onClick=${avoidReload}>
+                        Publish your article
+                    </a>
+                </li>
                 <li class="item">
-                <i class="fas fa-calculator icon" />
-                <a
-                    href="${prefixUriIfNeeded('/calculay')}"
-                    title="Calculay - the project"
-                    class="item-link"
-                    onClick=${avoidReload}
-                >
-                    Calculay - the project
-                </a>
-            </li>
+                    <a class="item-link" href="${prefixUriIfNeeded('/network')}" onClick=${avoidReload}>
+                        Network
+                    </a>
+                </li>
                 <li class="item">
-                    <i class="fas fa-paper-plane icon" />
-                    <a
-                        href="${prefixUriIfNeeded('/contact')}"
-                        title="Contact"
-                        class="item-link"
-                        onClick=${avoidReload}
-                    >
+                    <a class="item-link" href="${prefixUriIfNeeded('/calculay')}" onClick=${avoidReload}>
+                        Calculay - the project
+                    </a>
+                </li>
+                <li class="item">
+                    <a class="item-link" href="${prefixUriIfNeeded('/contact')}" onClick=${avoidReload}>
                         Contact us
                     </a>
                 </li>
             </ul>
-        </nav>`
-}
+        </nav>
+    `;
+};

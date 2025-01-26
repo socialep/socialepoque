@@ -2,13 +2,7 @@ import { html } from '../../lib/htm-preact.js'
 
 export const MenuBurger = ({ toggleMenuVisible }) => {
     return html`<style>
-            @media (min-width: 992px) {
-            .menu-burger {
-                display: none;
-            }
-        }
-
-         @media (max-width: 992px) {
+  
             .menu-burger {
                 position: fixed;
                 top: 1.5rem;
@@ -45,7 +39,7 @@ export const MenuBurger = ({ toggleMenuVisible }) => {
                 background: #fff;
                 border-radius: 0.3rem;
             }
-                 }
+                 
         </style>
         <button class="menu-burger" onClick=${toggleMenuVisible}>
             <div class="bar" />

@@ -10,6 +10,7 @@ import History from '../components/History/History.js';
 // Utils
 import * as Calculator from '../utils/calculator-core.js';
 
+
 class Calcugay extends Component {
   constructor() {
     super();
@@ -17,24 +18,31 @@ class Calcugay extends Component {
     this.state = {
       formula: [],
       history: [],
-      input: '0',
+      input: '',
       afterCalculation: false,
     };
     this.localHistorico = "localHistorico";
   }
 
-  saveMyHistory = async (elhistorico) => {
-    await AsyncStorage.setItem(this.localHistorico, JSON.stringify(elhistorico));
+  saveMyHistory = (history) => {
+    const userId = this.getUserId(); // Get the current user's unique ID
+    localStorage.setItem(`${this.localHistorico}_${userId}`, JSON.stringify(history));
   };
   
-  readMyHistory = async () => {
-    const retorno = await AsyncStorage.getItem(this.localHistorico);
-    this.setState({ history: JSON.parse(retorno || "[]") });
+  readMyHistory = () => {
+    const userId = this.getUserId(); // Get the current user's unique ID
+    const savedHistory = localStorage.getItem(`${this.localHistorico}_${userId}`);
+    this.setState({ history: JSON.parse(savedHistory || "[]") });
   };
   
-  componentDidMount() {
-    this.leerMyBackground();
-  }
+  getUserId = () => {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+      userId = `user_${Date.now()}`;
+      localStorage.setItem('userId', userId);
+    }
+    return userId;
+  };
 
   // Handle digits
   onDigit = (digit) => {
@@ -77,7 +85,7 @@ class Calcugay extends Component {
   onClear = () => {
     this.setState({
       formula: [],
-      input: '0',
+      input: '',
       afterCalculation: false,
     });
   };
@@ -165,22 +173,11 @@ onEqual = () => {
     finalFormula = ["0"].concat(finalFormula);
   }
 
-  // Ensure the formula ends correctly if the last input is ')'
-  const openParentheses = finalFormula.filter((char) => char === '(').length;
-  const closeParentheses = finalFormula.filter((char) => char === ')').length;
-
-  if (openParentheses > closeParentheses) {
-    // Add missing closing parentheses to balance the equation
-    const missingParentheses = openParentheses - closeParentheses;
-    for (let i = 0; i < missingParentheses; i++) {
-      finalFormula.push(')');
-    }
-  }
-
   const lastOperator = finalFormula[finalFormula.length - 1];
   if (
     Calculator.isOperator(lastOperator) &&
     lastOperator !== "!" &&
+    lastOperator !== "e" &&
     lastOperator !== "π" &&
     lastOperator !== "²" &&
     lastOperator !== "³" &&
@@ -195,8 +192,16 @@ onEqual = () => {
   }
 
   const result = Calculator.evaluate(finalFormula);
+  const lastOperatorInFormula = finalFormula[finalFormula.length - 2]; // Get the operation before the last input
 
-  if (!Number.isNaN(result)) {
+  // Check if the last operator is 'acos' or 'asin' and the result is 11223344556677889900
+  if ((lastOperatorInFormula === 'acos' || lastOperatorInFormula === 'asin') && result === 11223344556677889900) {
+    this.setState({
+      input: "Error", // Display the error message instead of 11223344556677889900
+      formula: [],
+      afterCalculation: true,
+    });
+  } else if (!Number.isNaN(result)) {
     const newHistoryItem = {
       formula: finalFormula,
       result: result,
@@ -213,11 +218,23 @@ onEqual = () => {
   }
 };
 
+componentDidMount() {
+  this.readMyHistory();
+}
+
 
 onClearHistory = () => {
-  this.setState({ history: [] }, () => {
-    this.saveMyHistory([]);
-  });
+  try {
+    const userId = this.getUserId();
+    const key = `${this.localHistorico}_${userId}`;
+    console.log('Clearing key:', key); // Log the key
+    localStorage.removeItem(key);
+    this.setState({ history: [] }, () => {
+      console.log('History cleared. Current state:', this.state.history);
+    });
+  } catch (error) {
+    console.error('Error clearing history:', error);
+  }
 };
 
 onHistoryItemClicked = ({ target }) => {
@@ -291,39 +308,57 @@ onHistoryItemClicked = ({ target }) => {
           display: flex;
           flex-direction: column;
         }
-  
-        @media (max-width: 768px) {
+
+            .screen-container {
+          margin-top: 20px;
+          margin-left: -20px;
+        }
+
+
+      @media (min-width: 992px) {
+               .history{
+          margin-top: 75px;
+          }
+        }
+
+        @media (max-width: 992px) {
           .calcugay-content {
             flex-direction: column; /* Stack components vertically on smaller screens */
             align-items: center;
           }
+                  .history{
+          margin-top: -20px;
+          }
         }
       </style>
   
-      <div class="calcugay-container-main">
+        <div class="calcugay-container-main">
+      <div class="screen-container">
         <${Screen} formula=${formula} input=${input} />
-        <div class="calcugay-content">
-          <div class="history-container">
-            <${History}
+                    <div class="history">
+               <${History}
               history=${this.state.history}
               onHistoryItemClicked=${this.onHistoryItemClicked}
               onEqual=${this.onEqual}
               onClearHistory=${this.onClearHistory}
             />
-          </div>
-          <div class="numpad-container">
-            <${Numpad}
-              onClear=${this.onClear}
-              onEqual=${this.onEqual}
-              onDigit=${this.onDigit}
-              onDecimal=${this.onDecimal}
-              onParenthesis=${this.onParenthesis}
-              onOperator=${this.onOperator}
-              onBackspace=${this.onBackspace}
-            />
-          </div>
         </div>
       </div>
+
+      <div class="calcugay-content">
+        <div class="numpad-container">
+          <${Numpad}
+            onClear=${this.onClear}
+            onEqual=${this.onEqual}
+            onDigit=${this.onDigit}
+            onDecimal=${this.onDecimal}
+            onParenthesis=${this.onParenthesis}
+            onOperator=${this.onOperator}
+            onBackspace=${this.onBackspace}
+          />
+        </div>
+      </div>
+    </div>
     `;
   }  
 }

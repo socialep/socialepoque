@@ -86,7 +86,7 @@ class History extends Component {
   .alert-body {
     margin: 20px 0;
   }
-  
+    
   /* Alert footer styling */
   .alert-footer {
     display: flex;
@@ -141,6 +141,7 @@ class History extends Component {
         
         <!-- Open Alert Button -->
         <button
+        class="custombutton"
           onClick=${this.toggleAlert}  
                   onMouseEnter=${(e) => {
         e.currentTarget.style.backgroundColor = "white"; // Change to desired hover background color
@@ -150,7 +151,7 @@ class History extends Component {
         e.currentTarget.style.backgroundColor = "purple"; // Revert to original background color
         e.currentTarget.querySelector("span").style.color = "white"; // Revert to original text color
       }} 
-          style="width: 5rem; height: 5rem; margin-top: 1.5rem; colorborder-radius: 5px; background-color: purple; cursor: "pointer";"
+          style="width: 4.5rem; height: 4.5rem; margin-top: 1.5rem; margin-left: 10px; margin-top: -70px; colorborder-radius: 5px; background-color: purple; cursor: "pointer";"
         >
           <span
             style=${{
