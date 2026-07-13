@@ -1,7 +1,7 @@
 import { html, useState, useEffect } from '../../lib/htm-preact.js';
 import { avoidReload } from '../../utils/avoidReload.js';
 import prefixUriIfNeeded from '../../utils/prefixUriIfNeeded.js';
-import { MenuBurger } from './MenuBurger.js'; // Import the MenuBurger component
+import { MenuBurger } from './menuBurger.js'; // Import the MenuBurger component
 
 export const Menu = ({ categories, articles }) => {
     const [menuVisible, setMenuVisible] = useState(false);
