@@ -135,43 +135,8 @@ export const Network = () => html`
                 <p>Idealizer</p> 
               </div>
               </a>
-                </div>
-                <a class="card" href="https://www.linkedin.com/in/marcosmarquesdev/">
-                <div> 
-                <div class="boarder">
-                <img
-                src=${prefixUriIfNeeded('/assets/marcos.png')}
-                style="width:170px; height: 170px"
-            />
-                <h4><b>Marcos Marques</b></h4> 
-                <p>Programmer: support</p> 
-              </div>
-                </div>
                 </a>
-                <a class="card" href="https://www.linkedin.com/in/ana-carolina-frança/">
-                <div> 
-                <div class="boarder">
-                <img
-                src=${prefixUriIfNeeded('/assets/carol.png')}
-                style="width:170px; height: 170px"
-            />
-                <h4><b>Ana Carolina Marques</b></h4> 
-                <p>Designer: supporter</p> 
-              </div>
-                </div>
-                </a>
-                <a class="card" href="https://www.linkedin.com/in/joana-avena-a4841076/">
-                <div> 
-                <div class="boarder">
-                <img
-                src=${prefixUriIfNeeded('/assets/joana.png')}
-                style="width:170px; height: 170px"
-            />
-                <h4><b>Joana Avena</b></h4> 
-                <p>Project supporter</p> 
-              </div>
-                </div>
-                </a>
+            
                 </div>
             </div>
         </div>

@@ -69,19 +69,7 @@ export const Requirements = () => html`
             <div class="info">
                 <h1 class="info-title">Publish your article</h1>
                 <p>
-                The blog Social Époque is an initiative that accept mini articles about all topics related to the Education and sexual minorities. The aim is to provide one more extra source of information towards the LGBTQ+ community and to support the AMPLA publication of papers related to the field.
-                </p>
-                <p>
-                The article must be written in English and contain between 800 to 1000 words. 
-                </p>
-                <p>
-                The requests should be sent to socialepoquebr@gmail.com for analysis. Please, also attach a good quality photo and send a profile link or yours. The link can be from LinkedIn, ORCID or from the university you work for.
-                </p>
-                <p>
-                If you are a professor, pease also state on the email if you are open for supervising new PhD students, once our blog also aims to support networking in the LGBTQ+ academic field.
-                </p>
-                <p>
-                You should receive a feedback about your request after two weeks, as well as a positive or negative response regarding the publication.
+                Under construction
                 </p>
             </div>
         </div>
