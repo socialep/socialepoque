@@ -5,8 +5,8 @@ import { PostsAndCategories } from '../components/layout/postsAndCategories.js';
 
 const setAppIcons = ({
   title = 'Social Époque blog',
-  favicon = '/assets/socialepoque.ico',
-  appleTouchIcon = '/assets/apple-touch-icon.png',
+  favicon = '/assets/icon.png',
+  appleTouchIcon = '/assets/icon.png',
   manifest = '/manifest.json',
   themeColor = '#000000',
 } = {}) => {
@@ -62,8 +62,8 @@ const setAppIcons = ({
 export const Home = ({ state, dispatch }) => {
   setAppIcons({
     title: 'Social Époque blog',
-    favicon: '/assets/socialepoque.ico',
-    appleTouchIcon: '/assets/apple-touch-icon.png',
+    favicon: '/assets/icon.png',
+    appleTouchIcon: '/assets/icon.png',
     manifest: '/manifest.json',
     themeColor: '#000000',
   });
