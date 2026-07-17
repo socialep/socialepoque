@@ -1,28 +1,11 @@
 {
   "scripts": {
     "start": "node ./dev/server.js",
-    "format": "./node_modules/.bin/prettier --write --no-semi --tab-width 4 --single-quote \"{,!(node_modules|deps)/**/}*.js\"",
-    "homepage": "https://socialep.github.io/socialepoque"
+    "format": "./node_modules/.bin/prettier --write --no-semi --tab-width 4 --single-quote \"{,!(node_modules|deps)/**/}*.js\""
   },
   "name": "socialepoque",
   "version": "4.2.7",
-    "icons": [
-    {
-      "src": "/assets/icon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "/assets/icon.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "/assets/icon.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
+  "homepage": "https://socialep.github.io/socialepoque",
   "main": "app/app.js",
   "directories": {
     "doc": "docs"
