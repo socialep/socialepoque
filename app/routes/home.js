@@ -4,7 +4,7 @@ import prefixUriIfNeeded from '../utils/prefixUriIfNeeded.js';
 import { PostsAndCategories } from '../components/layout/postsAndCategories.js';
 
 const setAppIcons = ({
-  title = 'Social Époque blog',
+  title = 'Calculay',
   favicon = '/assets/icon.png',
   appleTouchIcon = '/assets/icon.png',
   manifest = '/manifest.json',
@@ -61,7 +61,7 @@ const setAppIcons = ({
 
 export const Home = ({ state, dispatch }) => {
   setAppIcons({
-    title: 'Social Époque blog',
+    title: 'Calculay',
     favicon: '/assets/icon.png',
     appleTouchIcon: '/assets/icon.png',
     manifest: '/manifest.json',
